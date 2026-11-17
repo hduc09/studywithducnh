@@ -1,153 +1,105 @@
-# StudyNest — góc học tập của riêng bạn
+# studywithducnh
 
-StudyNest là web app học tập tĩnh, chạy trực tiếp trên GitHub Pages. Không cần tài khoản, máy chủ, npm hay bước build. Giao diện mặc định tiếng Việt, hỗ trợ điện thoại và máy tính.
+studywithducnh là ứng dụng học tập chạy bằng HTML, CSS và JavaScript thuần trên GitHub Pages. Đây là bản **Giai đoạn 7**: đổi tên, dọn tính năng đã gỡ và chuyển dữ liệu an toàn. Ứng dụng vẫn dùng được khi không có mạng.
 
-## Đã hoàn thành (Giai đoạn 1–3)
+**Trạng thái hiện tại:** chế độ Khách lưu trên thiết bị. Đăng nhập, đồng bộ Supabase, bạn bè, Squad và phòng học Realtime thuộc Giai đoạn 8–10; bản này chưa yêu cầu khóa API hay dự án Supabase. Phòng kết nối trực tiếp đời trước đã được gỡ để chuẩn bị thay bằng Supabase Realtime.
 
-- Dashboard dạng thẻ: kéo để đổi vị trí, ẩn/hiện và đổi kích cỡ; bố cục lưu trên trình duyệt.
-- 10 theme có xem trước, màu nhấn riêng, tự chọn theme sáng ban ngày, đổi phông chữ, độ mờ/tối nền, ảnh hoặc video nền từ URL hay thiết bị, CSS tùy chỉnh.
-- Đồng hồ Pomodoro, nghỉ ngắn/dài, bấm giờ tiến, Flowtime, đếm ngược tùy chọn. Tùy chỉnh thời lượng và số phiên, tự chạy phiên kế tiếp, cộng 5 phút, bỏ qua, Zen mode, toàn màn hình.
-- Đồng hồ tính từ timestamp nên không lệch khi tab ngủ. Có âm báo Web Audio, thông báo trình duyệt tùy chọn, nhắc khi rời tab, nhắc 20-20-20 và `Park a thought`.
-- Quản lý việc học: thêm/sửa/xóa, hoàn tác xóa, đánh dấu hoàn thành, lưu trữ, việc nhỏ, ghi chú, hạn chót, ưu tiên, ước lượng Pomodoro, môn học, tìm kiếm/lọc/nhóm, sắp xếp kéo thả hoặc nút lên/xuống, lặp lại hằng ngày/tuần, gắn việc với đồng hồ.
-- Quản lý môn học: màu và biểu tượng riêng, mục tiêu ngày/tuần/tháng, danh sách chương/bài, ngày thi. Phiên tập trung hoàn tất được ghi vào nhật ký để tính tiến độ.
-- Onboarding lần đầu, localStorage, IndexedDB cho nền upload, sao lưu/khôi phục JSON, nhắc sao lưu mỗi tuần, PWA và cache offline.
-- Thống kê: heatmap cả năm, chuỗi ngày, tổng giờ, giờ vàng, cột 7 ngày/30 ngày/12 tháng, phân bố theo môn, so sánh tuần và nhật ký phiên học. Có thể xuất thẻ thống kê PNG.
-- Mixer 9 lớp âm thanh tạo bằng Web Audio: mưa, gió, sóng biển, lửa, quán cà phê, bàn phím, white/pink/brown noise; chỉnh âm lượng từng lớp, lưu preset, hẹn giờ tắt. Nhạc học tập hỗ trợ link YouTube, Spotify, SoundCloud và nút mở trang gốc khi nguồn không cho nhúng.
-- Ghi chú Markdown có xem trước an toàn, tự lưu, tìm kiếm, gắn môn học; scratchpad luôn có sẵn ở góc màn hình.
-- Kế hoạch: ba ưu tiên hôm nay, thời khóa biểu tuần kéo thả trên máy tính và chỉnh bằng form trên điện thoại, lịch tháng gộp deadline/ngày thi, tổng kết cuối ngày.
-- Động lực: XP, cấp độ, huy hiệu, thử thách, streak, cây ảo lớn theo giờ học và đổi trạng thái sau nhiều ngày nghỉ; câu nói mỗi ngày có thể thêm/sửa.
-- Flashcard: tạo bộ/thẻ, lật thẻ 3D, nhập CSV hoặc văn bản dán, ôn theo SM-2 với bốn mức nhớ, quiz trắc nghiệm sinh từ các thẻ cùng bộ và thống kê ôn tập.
-- Thói quen: tạo/sửa thói quen, đặt mục tiêu số ngày mỗi tuần, đánh dấu từng ngày trên lưới tuần/tháng, xem chuỗi ngày liên tiếp.
-- Bảng lệnh Ctrl/Cmd + K để điều hướng, tạo nội dung, điều khiển đồng hồ, đổi theme và xuất sao lưu; nhấn `?` để xem phím tắt.
-- Widget đồng hồ số/kim, đổi 12/24 giờ và thời tiết theo thành phố. Thời tiết dùng Open-Meteo, chỉ gọi mạng khi đã chọn thành phố.
-- Phòng học chung hai người bằng WebRTC: trao đổi mã mời/trả lời thủ công, thấy trạng thái tập trung thật và gửi lời nhắn qua kết nối trực tiếp. Có thể nhập máy chủ TURN của riêng bạn khi mạng không cho kết nối ngang hàng.
+## Dữ liệu khi nâng cấp
 
-Sao lưu JSON là cách chuyển dữ liệu giữa các thiết bị: xuất ở thiết bị cũ, nhập ở thiết bị mới. Phòng học chung chỉ chia sẻ trạng thái và lời nhắn trong phiên hiện tại, không đồng bộ toàn bộ dữ liệu học.
+Khi mở bản mới trên **cùng trình duyệt và cùng tên miền GitHub Pages**, ứng dụng sao chép dữ liệu từ khóa cũ sang khóa mới. Khóa cũ được giữ ít nhất 30 ngày. Ảnh/video nền trong IndexedDB được sao chép sang cơ sở dữ liệu mới; bản cũ không bị xóa.
+
+Nếu có dữ liệu của hai mục đã gỡ, ứng dụng tự tạo một file JSON và hiện hộp thoại. Hãy kiểm tra file trong thư mục **Tải xuống**. Nếu trình duyệt chặn tải tự động, bấm **Tải lại file**. Chỉ bấm **Đã lưu file** sau khi thấy file đã tải. Lúc đó dữ liệu của hai mục mới được tách khỏi store đang dùng; bản lưu phục hồi ở trên thiết bị thêm 30 ngày. Vào **Cài đặt → Dữ liệu → Tải lại bản lưu cũ** để tải lại bản đó.
+
+Nếu bộ nhớ đầy, thao tác dọn dữ liệu cũ sẽ dừng; bản gốc vẫn được giữ. Không hệ thống nào có thể hứa an toàn dữ liệu tuyệt đối. Hãy giữ thêm file sao lưu JSON ở nơi bạn kiểm soát.
+
+## Chức năng đang dùng
+
+- Dashboard dạng thẻ có thể sắp xếp, ẩn/hiện và đổi kích thước.
+- 10 theme, nền ảnh/video, màu nhấn, font, chế độ Zen.
+- Pomodoro, bấm giờ, Flowtime, đếm ngược, nhắc nghỉ mắt và ghi nhanh suy nghĩ.
+- Việc học, môn học, mục tiêu, thống kê phiên học, XP và cây học tập.
+- Mixer âm thanh, nguồn nhạc nhúng, ghi chú Markdown, scratchpad, thời khóa biểu và lịch.
+- Bảng lệnh Ctrl/Cmd + K, widget giờ/thời tiết, sao lưu/khôi phục JSON.
+- PWA với app shell dùng được offline.
+
+Dữ liệu vẫn nằm trong localStorage và IndexedDB của trình duyệt hiện tại. Chưa có đồng bộ giữa các thiết bị. Bản sao lưu JSON là cách thủ công để chuyển dữ liệu.
 
 ## Cây thư mục
 
-```text
-index.html
-manifest.json
-sw.js
-.nojekyll
-README.md
-css/
-  base.css
-  themes.css
-  components.css
-  animations.css
-  stage2.css
-  stage3.css
-js/
-  main.js
-  store.js
-  utils.js
-  i18n.js
-  themes.js
-  timer.js
-  tasks.js
-  subjects.js
-  stats.js
-  audio.js
-  notes.js
-  planner.js
-  gamification.js
-  flashcards.js
-  habits.js
-  commands.js
-  utility.js
-  room.js
-assets/
-  icons/
-    icon.svg
-    icon-192.png
-    icon-512.png
-  audio/
+    index.html
+    manifest.json
+    sw.js
+    .nojekyll
     README.md
-  backgrounds/
-    README.md
-```
+    CHANGELOG.md
+    css/ base.css, themes.css, components.css, animations.css, stage2.css, stage3.css
+    js/ main.js, store.js, migration.js, timer.js, tasks.js, subjects.js,
+        stats.js, audio.js, notes.js, planner.js, gamification.js,
+        themes.js, commands.js, utility.js, i18n.js, utils.js
+    assets/icons/ icon.svg, icon-192.png, icon-512.png,
+                  icon-maskable.svg, icon-maskable-192.png, icon-maskable-512.png
+    assets/audio/README.md
+    assets/backgrounds/README.md
+    tests/migration.test.mjs
 
 ## Chạy trên máy
 
-Do ES Modules cần máy chủ HTTP, hãy mở thư mục dự án bằng một static server. Ví dụ nếu có Node.js:
-
-```bash
-npx serve .
-```
-
-Không cần cài package vào dự án. Hoặc dùng extension Live Server của VS Code. Mở địa chỉ localhost được in ra. PWA hoạt động trên localhost hoặc HTTPS.
+Dùng static server vì ứng dụng sử dụng ES Modules. Ví dụ với Node.js: chạy lệnh **npx serve .** ở thư mục chứa index.html. Không cần bước build hay package JavaScript trong ứng dụng. Manifest của bản phát hành dùng đường dẫn /studywithducnh/ để cài PWA từ GitHub Pages; giao diện vẫn chạy khi xem tại localhost.
 
 ## Đưa lên GitHub Pages
 
-1. Tạo repository mới trên GitHub, ví dụ `studynest`.
-2. Tải toàn bộ **nội dung** thư mục này lên nhánh `main`, đảm bảo `index.html` nằm ngay ở thư mục gốc của repository.
-3. Trong repository, mở **Settings → Pages**.
-4. Ở **Build and deployment**, chọn **Deploy from a branch**, nhánh `main`, thư mục `/ (root)`, rồi bấm **Save**.
-5. Chờ GitHub Pages xuất bản, sau đó mở `https://TEN-TAI-KHOAN.github.io/studynest/`.
-6. Trên điện thoại hoặc máy tính, dùng mục **Add to Home Screen / Install app** của trình duyệt để cài PWA.
+Repository chính: https://github.com/hduc09/studywithducnh . Địa chỉ dự kiến: https://hduc09.github.io/studywithducnh/ .
 
-Mọi đường dẫn nội bộ đều là đường dẫn tương đối, nên repository không cần tên cố định. Khi cập nhật file, service worker có thể giữ cache cũ đến lần tải lại kế tiếp; tăng hằng số `CACHE` trong `sw.js` để phát hành bản cache mới.
+1. Đặt toàn bộ file ở gốc nhánh main; index.html phải nằm ngay ở gốc repository.
+2. Mở **Settings → Pages**.
+3. Chọn **Deploy from a branch**, nhánh main, thư mục / (root), rồi bấm **Save**.
+4. Đợi workflow pages-build-deployment hoàn tất và mở URL trên.
+5. Sau khi cập nhật phiên bản, tải lại trang khi ứng dụng hiện thông báo có bản mới.
 
-Tham khảo thêm [hướng dẫn cấu hình nguồn xuất bản chính thức của GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+Service worker chỉ cache file của ứng dụng trên cùng origin, không cache API bên ngoài. Font và thời tiết cần mạng; khi offline, font hệ thống thay thế và thời tiết cũ có thể tiếp tục hiển thị.
 
 ## Phím tắt
 
 | Phím | Tác dụng |
 | --- | --- |
-| `Space` | Bắt đầu / tạm dừng đồng hồ khi không nhập văn bản |
-| `Esc` | Thoát Zen mode |
-| `F` | Bật / tắt toàn màn hình khi ở Zen mode |
-| `?` | Hiện gợi ý phím tắt |
-| `Ctrl/Cmd + K` | Mở bảng lệnh |
-| `↑` / `↓` / `Enter` | Chọn và chạy lệnh trong bảng lệnh |
-| `Space` | Lật thẻ khi đang ôn flashcard |
-| `1` / `2` / `3` / `4` | Chấm thẻ Quên / Khó / Tốt / Dễ |
+| Ctrl/Cmd + K | Mở bảng lệnh |
+| ↑ / ↓ / Enter | Chọn và chạy lệnh trong bảng lệnh |
+| Space | Bắt đầu hoặc tạm dừng đồng hồ khi không nhập văn bản |
+| ? | Xem bảng phím tắt |
+| F | Toàn màn hình khi ở Zen |
+| Esc | Thoát Zen hoặc đóng bảng lệnh |
 
-## Checklist tự kiểm tra
+## Checklist tự kiểm tra Giai đoạn 7
 
-- [ ] Lần mở đầu có onboarding, nhập tên, mục tiêu và môn học.
-- [ ] Thêm một việc, đổi ưu tiên/hạn chót, thêm việc nhỏ, gắn việc vào đồng hồ.
-- [ ] Bắt đầu đồng hồ, chuyển tab vài phút rồi quay lại: thời gian phải đúng.
-- [ ] Hoàn thành phiên tập trung: tiến độ hôm nay và thời gian gắn với việc tăng.
-- [ ] Sau phiên tập trung, chọn mức tập trung và ghi chú; kiểm tra nhật ký, heatmap, XP và cây ảo.
-- [ ] Bật mixer bằng nút bấm, chỉnh hai lớp âm, lưu preset, đặt hẹn giờ tắt.
-- [ ] Tạo ghi chú Markdown, xem trước, tải lại trang và kiểm tra nội dung còn nguyên.
-- [ ] Đặt ba ưu tiên, thêm khung học, chuyển ngày bằng kéo thả hoặc form, xem lịch tháng.
-- [ ] Mở tổng kết ngày, lưu cảm nhận và kiểm tra sau khi tải lại.
-- [ ] Đổi cả theme sáng/tối, upload nền, chỉnh blur/dim, mở Zen mode.
-- [ ] Kéo thẻ dashboard, ẩn một thẻ, tải lại trang: bố cục được giữ.
-- [ ] Xuất JSON, thay đổi dữ liệu, nhập JSON và kiểm tra khôi phục.
-- [ ] Tắt mạng rồi tải lại sau khi đã truy cập một lần: ứng dụng vẫn mở.
-- [ ] Thử màn hình 360 px, bàn phím Tab và chế độ giảm chuyển động.
-- [ ] Tạo bộ flashcard, nhập CSV có dấu phẩy trong dấu ngoặc kép, ôn thẻ và kiểm tra ngày ôn lại; thử quiz với ít nhất bốn thẻ.
-- [ ] Tạo thói quen, đánh dấu hôm nay, đổi lưới tuần/tháng và tải lại trang.
-- [ ] Mở bảng lệnh bằng Ctrl/Cmd + K, tìm một trang và chạy một lệnh; nhấn `?` xem phím tắt.
-- [ ] Đổi đồng hồ số/kim, 12/24 giờ; nhập một thành phố và thử trường hợp mất mạng.
-- [ ] Mở hai trình duyệt hoặc hai tab: A tạo mã mời, B dán và tạo mã trả lời, A dán mã trả lời; thử nhắn tin và bật trạng thái tập trung.
+- [ ] Mở bản mới trên trình duyệt đã có dữ liệu: tên, việc, môn, ghi chú, lịch và phiên học vẫn còn.
+- [ ] Kiểm tra file JSON được tải tự động khi có dữ liệu của hai mục đã gỡ.
+- [ ] Bấm **Để sau**, tải lại trang: dữ liệu cũ vẫn chờ xác nhận.
+- [ ] Bấm **Đã lưu file** sau khi kiểm tra file: giao diện tiếp tục hoạt động, dữ liệu học còn nguyên.
+- [ ] Vào Cài đặt → Dữ liệu → **Tải lại bản lưu cũ**, kiểm tra file phục hồi.
+- [ ] Thử nhập file sao lưu hỏng: dữ liệu hiện có vẫn còn.
+- [ ] Tắt mạng rồi tải lại sau khi đã mở ứng dụng ít nhất một lần.
+- [ ] Kiểm tra giao diện ở 360 px, bàn phím Tab, theme sáng/tối và chế độ giảm chuyển động.
+- [ ] Kiểm tra tên mới ở tab, logo, thông báo, tên file sao lưu và PWA.
+- [ ] Kiểm tra mọi mục menu, bảng lệnh và link không dẫn đến trang đã gỡ.
 
-## Giới hạn lưu trữ và quyền riêng tư
+## Kiểm thử tự động
 
-Dữ liệu chỉ nằm trong trình duyệt hiện tại. Xóa dữ liệu website hoặc dùng trình duyệt khác sẽ không tự đồng bộ; hãy xuất JSON định kỳ. Nền upload nằm trong IndexedDB và được đưa vào file sao lưu. File video lớn có thể vượt hạn mức lưu trữ của trình duyệt, nên ứng dụng giới hạn 25 MB. Font Google dùng CDN; khi offline, font hệ thống sẽ thay thế. Thông báo trình duyệt cần được cấp quyền và có thể bị hệ điều hành chặn. Âm thanh mixer được tạo ngay trên thiết bị nên không cần tải file CC0. Nhạc nhúng cần mạng và phụ thuộc quyền nhúng của từng nguồn; StudyNest luôn cung cấp link mở trang gốc.
+Chạy **node tests/migration.test.mjs**. Bộ test kiểm tra sao chép dữ liệu cũ, giữ bản gốc, chỉ dọn sau xác nhận, giữ bản phục hồi 30 ngày, từ chối dọn khi hết quota, không xóa bản gốc đã đổi, và bảo toàn store khi ghi thất bại. Kiểm tra giao diện và PWA cần làm thêm trên trình duyệt.
 
-Thời tiết gửi **tên thành phố bạn nhập** cho dịch vụ định vị địa danh của Open-Meteo, sau đó dùng tọa độ thành phố để lấy nhiệt độ và mã thời tiết hiện tại. Không dùng quyền vị trí của trình duyệt. Dữ liệu đã tải được lưu cục bộ để hiện lại khi mất mạng. Tham khảo [Geocoding API](https://open-meteo.com/en/docs/geocoding-api) và [Forecast API](https://open-meteo.com/en/docs).
+## Việc bạn cần tự làm
 
-Phòng học chung cần kết nối mạng để dùng máy chủ STUN công khai của Cloudflare và trao đổi mã trực tiếp giữa hai người. Một số mạng cần TURN; nhập URI, tên người dùng và mật khẩu TURN vào phần tùy chọn trong phòng. Thông tin TURN chỉ dùng trong phiên và không lưu. Mã WebRTC có thể tiết lộ địa chỉ mạng của bạn cho người nhận, nên chỉ gửi cho người tin cậy. Không có máy chủ signaling, danh sách phòng công khai, đồng bộ lịch sử chat hoặc lưu chat lâu dài. Mỗi phòng chỉ hỗ trợ hai người. Tham khảo [hướng dẫn WebRTC](https://webrtc.org/getting-started/peer-connections) và [STUN Cloudflare](https://developers.cloudflare.com/realtime/sfu/get-started/connection-patterns/).
+- **Giai đoạn 7:** không cần tạo dịch vụ hay nhập khóa.
+- **Giai đoạn 8:** tạo project Supabase; bật Auth, cấu hình Site URL/Redirect URLs; chạy supabase/schema.sql; dán Project URL và anon key công khai vào js/config.js. Chưa làm các bước này cho đến khi Giai đoạn 8 được cung cấp.
+- **Giai đoạn 9–10:** cấu hình Realtime và các tùy chọn cộng đồng sau khi schema, RLS và kiểm thử bảo mật đã hoàn tất.
 
-## 10 hướng nâng cấp tiếp theo
+Không đặt service_role key hay bí mật khác trong mã front-end hoặc repository công khai.
 
-1. Đồng bộ hai chiều tùy chọn qua một kho lưu trữ do người dùng chọn.
-2. Nhập và xuất thời khóa biểu bằng file `.ics`.
-3. Nhắc deadline bằng thông báo khi ứng dụng đang mở.
-4. Thống kê tiến độ theo từng chương của giáo trình.
-5. Xuất ghi chú thành PDF.
-6. Tùy chỉnh mục tiêu XP và bộ huy hiệu cá nhân.
-7. Lịch sử ôn flashcard để xem mức nhớ theo thời gian.
-8. Mẫu bộ flashcard có thể chia sẻ bằng file CSV.
-9. Tự dựng signaling server tùy chọn để mời vào phòng bằng một link.
-10. Nhóm học nhiều người có quyền kiểm soát tham gia và lưu trữ tùy chọn.
+## Quyền riêng tư và giới hạn
+
+Bản này không có tài khoản hoặc đồng bộ đám mây. Tên thành phố bạn nhập được gửi tới Open-Meteo để lấy thời tiết; ứng dụng không xin vị trí thiết bị. Nhạc nhúng phụ thuộc quyền nhúng và kết nối mạng. Thông báo trình duyệt cần bạn cấp quyền. Nền upload và dữ liệu học nằm trên máy này; xóa dữ liệu website sẽ xóa bản cục bộ. Hãy tải file sao lưu định kỳ.
+
+Mốc Lighthouse >90 chưa được đo trên bản phát hành này.
 
 ## Giấy phép
 
-Mã nguồn được cung cấp để bạn dùng và chỉnh sửa cho dự án cá nhân. Không có phụ thuộc JavaScript bên ngoài.
+Mã nguồn có thể dùng và chỉnh sửa cho dự án cá nhân. Không có phụ thuộc JavaScript cần build.
