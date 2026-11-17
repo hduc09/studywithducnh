@@ -1,0 +1,13 @@
+export const $=(selector,root=document)=>root.querySelector(selector);
+export const $$=(selector,root=document)=>[...root.querySelectorAll(selector)];
+export const uid=()=>crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`;
+export const escapeHTML=(value='')=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export const localDate=(date=new Date())=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+export const minutesLabel=n=>n>=60?`${Math.floor(n/60)}h ${n%60}m`:`${n}m`;
+export const formatTime=seconds=>{const s=Math.max(0,Math.floor(seconds));const h=Math.floor(s/3600);return `${h?`${String(h).padStart(2,'0')}:`:''}${String(Math.floor(s%3600/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`};
+export const dateText=(date,lang='vi')=>new Intl.DateTimeFormat(lang==='vi'?'vi-VN':'en-US',{day:'numeric',month:'short'}).format(new Date(`${date}T12:00:00`));
+export const toast=(message,action)=>{const node=document.createElement('div');node.className='toast';node.textContent=message;if(action){const btn=document.createElement('button');btn.textContent=action.label;btn.onclick=()=>{action.run();node.remove()};node.append(btn)}$('#toast-region').append(node);setTimeout(()=>node.remove(),5000)};
+export const confetti=()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const layer=$('#confetti-layer');for(let i=0;i<32;i++){const piece=document.createElement('i');piece.className='confetti';piece.style.setProperty('--left',`${35+Math.random()*30}%`);piece.style.setProperty('--drift',`${(Math.random()-.5)*400}px`);piece.style.setProperty('--duration',`${1.3+Math.random()*1.3}s`);piece.style.setProperty('--color',['#a99bff','#6dd8cc','#f7c986','#ff9eb7'][i%4]);layer.append(piece);setTimeout(()=>piece.remove(),2700)}};
+export const emptyState=(title,detail='')=>`<div class="empty-state"><svg viewBox="0 0 80 60" fill="none" aria-hidden="true"><rect x="15" y="14" width="50" height="38" rx="8" stroke="currentColor" opacity=".55"/><path d="M28 28h24M28 36h16" stroke="currentColor" opacity=".55" stroke-linecap="round"/><path d="m58 5 2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="currentColor"/></svg><strong>${escapeHTML(title)}</strong>${escapeHTML(detail)}</div>`;
+export const download=(name,content,type='application/json')=>{const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+export const safeURL=value=>{try{const url=new URL(value);return ['https:','http:'].includes(url.protocol)?url.href:''}catch{return ''}};
