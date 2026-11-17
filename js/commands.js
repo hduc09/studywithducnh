@@ -9,7 +9,7 @@ import {openDailyReview} from './planner.js';
 let selectedIndex=0,shown=[];
 const go=view=>location.hash=view;
 const commands=()=>[
-  ...[['home','Tổng quan','◈'],['tasks','Việc cần học','☷'],['subjects','Môn học','▦'],['stats','Thống kê','▤'],['audio','Âm thanh','♫'],['notes','Ghi chú','✎'],['planner','Kế hoạch','▦'],['rewards','Động lực','✧']].map(([id,label,icon])=>({id:`go-${id}`,label:`Mở ${label}`,icon,group:'Điều hướng',run:()=>go(id)})),
+  ...[['home','Tổng quan','◈'],['tasks','Việc cần học','☷'],['subjects','Môn học','▦'],['stats','Thống kê','▤'],['audio','Âm thanh','♫'],['notes','Ghi chú','✎'],['planner','Kế hoạch','▦'],['rewards','Động lực','✧'],['community','Bạn bè & Squad','♧'],['rooms','Phòng học chung','◫']].map(([id,label,icon])=>({id:`go-${id}`,label:`Mở ${label}`,icon,group:'Điều hướng',run:()=>go(id)})),
   {id:'timer-toggle',label:'Bắt đầu / tạm dừng đồng hồ',icon:'◷',group:'Tập trung',run:toggle},
   {id:'timer-skip',label:'Bỏ qua phiên hiện tại',icon:'⏭',group:'Tập trung',run:skip},
   {id:'timer-add',label:'Thêm 5 phút',icon:'＋',group:'Tập trung',run:addFive},
@@ -21,6 +21,8 @@ const commands=()=>[
   {id:'scratch',label:'Mở ghi chú nhanh',icon:'✎',group:'Tiện ích',run:()=>$('#scratch-trigger').click()},
   {id:'settings',label:'Mở cài đặt',icon:'⚙',group:'Tiện ích',run:()=>openSettings()},
   {id:'backup',label:'Xuất bản sao lưu JSON',icon:'⇩',group:'Tiện ích',run:exportData},
+  {id:'create-room',label:'Tạo phòng học chung',icon:'◫',group:'Cộng đồng',run:()=>{go('rooms');$('#room-create-form input[name="name"]').focus()}},
+  {id:'invite-friend',label:'Mời bạn học cùng',icon:'♧',group:'Cộng đồng',run:()=>{go('community');$('#friend-query').focus()}},
   {id:'language',label:'Đổi ngôn ngữ VI / EN',icon:'文',group:'Tiện ích',run:()=>$('#lang-trigger').click()},
   ...themes.map(theme=>({id:`theme-${theme.id}`,label:`Theme ${theme.name}`,icon:'◐',group:'Giao diện',run:()=>store.update(s=>s.settings.theme=theme.id,'settings')}))
 ];

@@ -110,6 +110,7 @@ const action=fn=>async event=>{
   finally{if(button)button.disabled=false}
 };
 function bindAuthForms(){
+  $('#signup-rules').onclick=()=>$('#community-rules-dialog').showModal();
   const forms={login:'#login-form',signup:'#signup-form',magic:'#magic-form',reset:'#reset-form'};
   for(const button of document.querySelectorAll('[data-auth-tab]'))button.onclick=()=>{
     const tab=button.dataset.authTab;
@@ -285,7 +286,7 @@ function bindPanels(){
     if(action==='auto-backup')chooseAutomaticBackup().catch(error=>toast(error.message||'Không thể chọn file sao lưu.'));
   });
   $('#settings-content').addEventListener('change',event=>{
-    const key={'privacy-status':'shareStudyStatus','privacy-minutes':'shareMinutes'}[event.target.id];
+    const key={'privacy-status':'shareStudyStatus','privacy-minutes':'shareMinutes','privacy-hide':'hidePresence'}[event.target.id];
     if(key)store.update(state=>{state.settings[key]=event.target.checked},'settings');
   });
   $('#account-trigger').onclick=showAccount;

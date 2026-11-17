@@ -15,6 +15,9 @@ const channels=[
 const builtins=[{name:'Mưa + Lofi',volumes:{rain:.46,wind:.12,pink:.08},musicURL:'https://www.youtube.com/watch?v=jfKfPfyJRdk'},{name:'Cafe sáng',volumes:{cafe:.36,keyboard:.16,white:.07}},{name:'Biển yên',volumes:{ocean:.5,wind:.18}},{name:'Lò sưởi',volumes:{fire:.45,brown:.13}}];
 let context,master,nodes=new Map(),buffers={},playing=false,sleepTimer=0,clickTimer=0;
 const currentVolumes=()=>store.get().audio.volumes;
+export function applyRoomSound(id){if(!channels.some(item=>item.id===id))return;
+  for(const item of channels)setVolume(item.id,item.id===id?.4:0);
+  if(!playing)start();renderMixer();}
 
 // Tạo lớp noise tại chỗ để mixer hoạt động cả khi offline.
 function makeBuffer(kind){if(buffers[kind])return buffers[kind];const length=context.sampleRate*5,buffer=context.createBuffer(1,length,context.sampleRate),data=buffer.getChannelData(0);let brown=0,pink0=0,pink1=0,pink2=0;for(let i=0;i<length;i++){const white=Math.random()*2-1;if(kind==='brown'){brown=(brown+.02*white)/1.02;data[i]=brown*3.5}else if(kind==='pink'){pink0=.99886*pink0+white*.0555179;pink1=.99332*pink1+white*.0750759;pink2=.969*pink2+white*.153852;data[i]=(pink0+pink1+pink2+white*.5362)*.12}else data[i]=white*.3}buffers[kind]=buffer;return buffer}
