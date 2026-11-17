@@ -1,5 +1,12 @@
 # Changelog
 
+## Giai đoạn 8 — 2026-11-17
+
+- Thêm Supabase Auth, hồ sơ và avatar SVG; chế độ Khách vẫn chạy độc lập.
+- Thêm schema RLS, RPC idempotent, đồng bộ outbox IndexedDB, Realtime và polling dự phòng.
+- Thêm thùng rác, lịch sử ghi chú, xử lý xung đột, checksum sao lưu và workflow chống pause.
+- Bổ sung test mô hình đồng bộ và kịch bản RLS tích hợp; cloud thực tế cần project Supabase để kiểm tra.
+
 ## Giai đoạn 7 — 2026-11-17
 
 - Đổi tên StudyNest thành studywithducnh.
