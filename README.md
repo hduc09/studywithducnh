@@ -48,7 +48,7 @@ Dùng static server vì ứng dụng sử dụng ES Modules. Ví dụ với Node
 
 ## Đưa lên GitHub Pages
 
-Repository chính: https://github.com/hduc09/studywithducnh . Địa chỉ dự kiến: https://hduc09.github.io/studywithducnh/ .
+Repository chính: https://github.com/hduc09/studywithducnh . Trang đã xuất bản: https://hduc09.github.io/studywithducnh/ .
 
 1. Đặt toàn bộ file ở gốc nhánh main; index.html phải nằm ngay ở gốc repository.
 2. Mở **Settings → Pages**.
