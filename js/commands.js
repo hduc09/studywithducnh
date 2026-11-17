@@ -3,15 +3,13 @@ import {store,exportData} from './store.js';
 import {toggle,skip,addFive} from './timer.js';
 import {openTaskForm} from './tasks.js';
 import {openSubjectForm} from './subjects.js';
-import {openNewDeck} from './flashcards.js';
-import {openNewHabit} from './habits.js';
 import {openSettings,themes} from './themes.js';
 import {openDailyReview} from './planner.js';
 
 let selectedIndex=0,shown=[];
 const go=view=>location.hash=view;
 const commands=()=>[
-  ...[['home','Tổng quan','◈'],['tasks','Việc cần học','☷'],['subjects','Môn học','▦'],['stats','Thống kê','▤'],['audio','Âm thanh','♫'],['notes','Ghi chú','✎'],['planner','Kế hoạch','▦'],['rewards','Động lực','✧'],['flashcards','Flashcard','▣'],['habits','Thói quen','◉'],['room','Phòng học chung','◎']].map(([id,label,icon])=>({id:`go-${id}`,label:`Mở ${label}`,icon,group:'Điều hướng',run:()=>go(id)})),
+  ...[['home','Tổng quan','◈'],['tasks','Việc cần học','☷'],['subjects','Môn học','▦'],['stats','Thống kê','▤'],['audio','Âm thanh','♫'],['notes','Ghi chú','✎'],['planner','Kế hoạch','▦'],['rewards','Động lực','✧']].map(([id,label,icon])=>({id:`go-${id}`,label:`Mở ${label}`,icon,group:'Điều hướng',run:()=>go(id)})),
   {id:'timer-toggle',label:'Bắt đầu / tạm dừng đồng hồ',icon:'◷',group:'Tập trung',run:toggle},
   {id:'timer-skip',label:'Bỏ qua phiên hiện tại',icon:'⏭',group:'Tập trung',run:skip},
   {id:'timer-add',label:'Thêm 5 phút',icon:'＋',group:'Tập trung',run:addFive},
@@ -19,8 +17,6 @@ const commands=()=>[
   {id:'new-task',label:'Thêm việc học',icon:'☷',group:'Tạo mới',run:()=>openTaskForm()},
   {id:'new-subject',label:'Thêm môn học',icon:'▦',group:'Tạo mới',run:()=>openSubjectForm()},
   {id:'new-note',label:'Tạo ghi chú',icon:'✎',group:'Tạo mới',run:()=>{$('#new-note').click();go('notes')}},
-  {id:'new-deck',label:'Tạo bộ flashcard',icon:'▣',group:'Tạo mới',run:openNewDeck},
-  {id:'new-habit',label:'Thêm thói quen',icon:'◉',group:'Tạo mới',run:openNewHabit},
   {id:'review',label:'Tổng kết hôm nay',icon:'✧',group:'Kế hoạch',run:openDailyReview},
   {id:'scratch',label:'Mở ghi chú nhanh',icon:'✎',group:'Tiện ích',run:()=>$('#scratch-trigger').click()},
   {id:'settings',label:'Mở cài đặt',icon:'⚙',group:'Tiện ích',run:()=>openSettings()},
@@ -34,5 +30,5 @@ function render(){const query=$('#command-input').value.trim();shown=commands().
 function close(){if($('#command-dialog').open)$('#command-dialog').close()}
 export function openPalette(){const dialog=$('#command-dialog');if(dialog.open){close();return}selectedIndex=0;$('#command-input').value='';render();dialog.showModal();$('#command-input').focus()}
 function execute(id){const command=commands().find(item=>item.id===id);if(!command)return;close();command.run()}
-export function openShortcuts(){const rows=[['Ctrl / Cmd + K','Bảng lệnh'],['Space','Bắt đầu hoặc tạm dừng đồng hồ'],['?','Bảng phím tắt'],['F','Toàn màn hình khi ở Zen'],['Esc','Thoát Zen hoặc đóng bảng lệnh'],['Space','Lật flashcard khi đang ôn'],['1 / 2 / 3 / 4','Chấm Quên / Khó / Tốt / Dễ'],['↑ / ↓ / Enter','Chọn và chạy lệnh']];$('#shortcut-list').innerHTML=rows.map(([key,label])=>`<div><span>${label}</span><kbd>${key}</kbd></div>`).join('');$('#shortcuts-dialog').showModal()}
+export function openShortcuts(){const rows=[['Ctrl / Cmd + K','Bảng lệnh'],['Space','Bắt đầu hoặc tạm dừng đồng hồ'],['?','Bảng phím tắt'],['F','Toàn màn hình khi ở Zen'],['Esc','Thoát Zen hoặc đóng bảng lệnh'],['↑ / ↓ / Enter','Chọn và chạy lệnh']];$('#shortcut-list').innerHTML=rows.map(([key,label])=>`<div><span>${label}</span><kbd>${key}</kbd></div>`).join('');$('#shortcuts-dialog').showModal()}
 export function initCommands(){$('#palette-trigger').onclick=openPalette;$('#command-input').oninput=()=>{selectedIndex=0;render()};$('#command-results').onclick=e=>{const id=e.target.closest('[data-command-id]')?.dataset.commandId;if(id)execute(id)};$('#shortcuts-close').onclick=()=>$('#shortcuts-dialog').close();document.addEventListener('keydown',e=>{const typing=/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName)||document.activeElement?.isContentEditable;if((e.ctrlKey||e.metaKey)&&e.key.toLocaleLowerCase()==='k'){e.preventDefault();e.stopImmediatePropagation();openPalette();return}if($('#command-dialog').open){if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();close()}else if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();e.stopImmediatePropagation();selectedIndex=(selectedIndex+(e.key==='ArrowDown'?1:-1)+shown.length)%Math.max(1,shown.length);render();$('#command-results .selected')?.scrollIntoView({block:'nearest'})}else if(e.key==='Enter'){e.preventDefault();e.stopImmediatePropagation();if(shown[selectedIndex])execute(shown[selectedIndex].id)}return}if(e.key==='?'&&!typing&&!$('#shortcuts-dialog').open){e.preventDefault();e.stopImmediatePropagation();openShortcuts()}},true)}
