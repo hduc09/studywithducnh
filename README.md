@@ -1,8 +1,8 @@
 # studywithducnh
 
-studywithducnh là ứng dụng học tập chạy bằng HTML, CSS và JavaScript thuần trên GitHub Pages. Đây là bản **Giai đoạn 7**: đổi tên, dọn tính năng đã gỡ và chuyển dữ liệu an toàn. Ứng dụng vẫn dùng được khi không có mạng.
+studywithducnh là ứng dụng học tập chạy bằng HTML, CSS và JavaScript thuần trên GitHub Pages. Đây là bản **Giai đoạn 8**: tài khoản Supabase, hồ sơ, đồng bộ local-first, thùng rác, lịch sử ghi chú và nhiều lớp sao lưu. Ứng dụng vẫn dùng được khi không có mạng.
 
-**Trạng thái hiện tại:** chế độ Khách lưu trên thiết bị. Đăng nhập, đồng bộ Supabase, bạn bè, Squad và phòng học Realtime thuộc Giai đoạn 8–10; bản này chưa yêu cầu khóa API hay dự án Supabase. Phòng kết nối trực tiếp đời trước đã được gỡ để chuẩn bị thay bằng Supabase Realtime.
+**Trạng thái hiện tại:** chế độ Khách dùng ngay. Đăng nhập và đồng bộ chỉ hoạt động sau khi chủ dự án tự tạo Supabase, chạy SQL và điền URL/anon key công khai. Bản phát hành chưa có project/khóa nên không hiển thị đăng nhập đang hoạt động. Bạn bè, Squad và phòng học Realtime thuộc Giai đoạn 9–10.
 
 ## Dữ liệu khi nâng cấp
 
@@ -22,7 +22,7 @@ Nếu bộ nhớ đầy, thao tác dọn dữ liệu cũ sẽ dừng; bản gố
 - Bảng lệnh Ctrl/Cmd + K, widget giờ/thời tiết, sao lưu/khôi phục JSON.
 - PWA với app shell dùng được offline.
 
-Dữ liệu vẫn nằm trong localStorage và IndexedDB của trình duyệt hiện tại. Chưa có đồng bộ giữa các thiết bị. Bản sao lưu JSON là cách thủ công để chuyển dữ liệu.
+Dữ liệu được ghi vào localStorage và IndexedDB theo từng tài khoản; thay đổi được xếp vào outbox trước khi gửi. Sau khi cấu hình Supabase, cùng tài khoản có thể đồng bộ qua Realtime và polling 60 giây. Ảnh/video nền tải lên chỉ nằm trên thiết bị này; dùng xuất JSON để chuyển nền sang thiết bị khác.
 
 ## Cây thư mục
 
@@ -35,12 +35,16 @@ Dữ liệu vẫn nằm trong localStorage và IndexedDB của trình duyệt hi
     css/ base.css, themes.css, components.css, animations.css, stage2.css, stage3.css
     js/ main.js, store.js, migration.js, timer.js, tasks.js, subjects.js,
         stats.js, audio.js, notes.js, planner.js, gamification.js,
-        themes.js, commands.js, utility.js, i18n.js, utils.js
+        themes.js, commands.js, utility.js, i18n.js, utils.js,
+        config.js, cloud.js, account.js, sync.js, localdb.js, sync-model.js
+    supabase/schema.sql
+    .github/workflows/keep-supabase-awake.yml
+    assets/avatars/ moon.svg, sun.svg, leaf.svg, star.svg, wave.svg, book.svg
     assets/icons/ icon.svg, icon-192.png, icon-512.png,
                   icon-maskable.svg, icon-maskable-192.png, icon-maskable-512.png
     assets/audio/README.md
     assets/backgrounds/README.md
-    tests/migration.test.mjs
+    tests/migration.test.mjs, sync-model.test.mjs, rls.integration.mjs
 
 ## Chạy trên máy
 
@@ -69,7 +73,7 @@ Service worker chỉ cache file của ứng dụng trên cùng origin, không ca
 | F | Toàn màn hình khi ở Zen |
 | Esc | Thoát Zen hoặc đóng bảng lệnh |
 
-## Checklist tự kiểm tra Giai đoạn 7
+## Checklist tự kiểm tra Giai đoạn 8
 
 - [ ] Mở bản mới trên trình duyệt đã có dữ liệu: tên, việc, môn, ghi chú, lịch và phiên học vẫn còn.
 - [ ] Kiểm tra file JSON được tải tự động khi có dữ liệu của hai mục đã gỡ.
@@ -81,22 +85,42 @@ Service worker chỉ cache file của ứng dụng trên cùng origin, không ca
 - [ ] Kiểm tra giao diện ở 360 px, bàn phím Tab, theme sáng/tối và chế độ giảm chuyển động.
 - [ ] Kiểm tra tên mới ở tab, logo, thông báo, tên file sao lưu và PWA.
 - [ ] Kiểm tra mọi mục menu, bảng lệnh và link không dẫn đến trang đã gỡ.
+- [ ] Cấu hình Supabase rồi đăng ký, xác minh email, đăng nhập và lưu username/avatar/múi giờ.
+- [ ] Thử magic link, quên/đổi mật khẩu, đổi email, đăng xuất; Google chỉ khi đã bật provider.
+- [ ] Tạo ghi chú ở chế độ Khách, đăng nhập, chọn **Đưa vào tài khoản**, kiểm tra số lượng và checksum rồi mở trên thiết bị thứ hai.
+- [ ] Sửa ghi chú offline; kết nối lại và xem badge đồng bộ. Thử sửa cùng một ghi chú ở hai thiết bị rồi giải quyết xung đột.
+- [ ] Xóa ghi chú, mở Thùng rác, khôi phục; thử xóa vĩnh viễn sau khi cloud xác nhận.
+- [ ] Xuất và nhập JSON có checksum; chọn file sao lưu tự động trên trình duyệt hỗ trợ File System Access.
 
 ## Kiểm thử tự động
 
-Chạy **node tests/migration.test.mjs**. Bộ test kiểm tra sao chép dữ liệu cũ, giữ bản gốc, chỉ dọn sau xác nhận, giữ bản phục hồi 30 ngày, từ chối dọn khi hết quota, không xóa bản gốc đã đổi, và bảo toàn store khi ghi thất bại. Kiểm tra giao diện và PWA cần làm thêm trên trình duyệt.
+Chạy **node --test tests/*.test.mjs**. Bộ test thuần đã chạy: migration, giữ bản gốc, từ chối dọn khi hết quota, checksum, bản xung đột không ghi đè, soft delete và patch theo trường. File `tests/rls.integration.mjs` yêu cầu project và hai tài khoản test; đặt biến môi trường `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `TEST_USER_A_EMAIL`, `TEST_USER_A_PASSWORD`, `TEST_USER_B_EMAIL`, `TEST_USER_B_PASSWORD`, rồi chạy `node tests/rls.integration.mjs`. Test này chứng minh B không đọc/ghi record của A và không xem hồ sơ A. Mọi tài khoản test phải được xác minh email trước.
+
+### Kịch bản mất dữ liệu và kết quả
+
+| Kịch bản | Kết quả hiện tại |
+| --- | --- |
+| Nhập file sao lưu hỏng, hết quota, migration từ bản cũ | PASS bằng test tự động GĐ7 và checksum GĐ8. |
+| Xóa nhầm rồi khôi phục; hợp nhất hai ghi chú khác nội dung | PASS bằng test mô hình; UI cần kiểm tra trên trình duyệt. |
+| Tắt mạng khi gõ; đóng tab đột ngột | Có autosave 500 ms, blur/visibility/pagehide và localStorage + IndexedDB; kiểm tra thực tế còn chờ. |
+| Hai thiết bị sửa một ghi chú, token hết hạn, project pause | Có luồng giữ bản local, outbox và màn hình xung đột; kiểm tra tích hợp còn chờ project Supabase. |
+| Đổi tài khoản khi outbox còn dữ liệu; cô lập RLS A/B | Có chặn đổi tài khoản; test RLS tích hợp còn chờ project và hai tài khoản. |
+
+Không thể hứa an toàn dữ liệu tuyệt đối: người dùng có thể xóa dữ liệu trình duyệt, thiết bị hỏng, hoặc quota đầy. Hãy giữ bản sao lưu JSON ngoài thiết bị.
 
 ## Việc bạn cần tự làm
 
-- **Giai đoạn 7:** không cần tạo dịch vụ hay nhập khóa.
-- **Giai đoạn 8:** tạo project Supabase; bật Auth, cấu hình Site URL/Redirect URLs; chạy supabase/schema.sql; dán Project URL và anon key công khai vào js/config.js. Chưa làm các bước này cho đến khi Giai đoạn 8 được cung cấp.
+- **Giai đoạn 8:** tạo project Supabase ở Dashboard; vào Authentication → Providers, bật Email và xác minh email. Vào Authentication → URL Configuration, đặt Site URL `https://hduc09.github.io/studywithducnh/`, thêm Redirect URL đúng địa chỉ đó và `http://localhost:3000/**` cho thử nghiệm cục bộ. Dùng SQL Editor chạy toàn bộ `supabase/schema.sql` một lần. Trong Project Settings → API, lấy Project URL và anon/publishable key công khai điền vào `js/config.js`, rồi cập nhật GitHub Pages. Với Google, bật provider Google trong Supabase và làm theo hướng dẫn redirect/callback của Supabase; có thể bỏ qua.
+- **Chống pause:** trong GitHub → Settings → Secrets and variables → Actions, thêm `SUPABASE_URL` và `SUPABASE_ANON_KEY` cho workflow `keep-supabase-awake.yml`; chạy thử bằng **Run workflow**. GitHub có thể vô hiệu hóa workflow theo lịch ở repo công khai sau 60 ngày không hoạt động; khi đó bật lại trong tab Actions.
 - **Giai đoạn 9–10:** cấu hình Realtime và các tùy chọn cộng đồng sau khi schema, RLS và kiểm thử bảo mật đã hoàn tất.
 
 Không đặt service_role key hay bí mật khác trong mã front-end hoặc repository công khai.
 
 ## Quyền riêng tư và giới hạn
 
-Bản này không có tài khoản hoặc đồng bộ đám mây. Tên thành phố bạn nhập được gửi tới Open-Meteo để lấy thời tiết; ứng dụng không xin vị trí thiết bị. Nhạc nhúng phụ thuộc quyền nhúng và kết nối mạng. Thông báo trình duyệt cần bạn cấp quyền. Nền upload và dữ liệu học nằm trên máy này; xóa dữ liệu website sẽ xóa bản cục bộ. Hãy tải file sao lưu định kỳ.
+Khi đã cấu hình Supabase, mỗi record gắn `user_id`; RLS cho phép chủ sở hữu đọc và RPC ghi đúng tài khoản. Không đặt service_role key ở front-end. Server giữ `version` và `updated_at`; ghi chú lệch version tạo bản xung đột, việc và lịch gộp patch theo trường. Xóa thông thường là soft delete; xóa vĩnh viễn cần xác nhận. Snapshot server được ghi lần đầu mỗi ngày khi người dùng mở app và đồng bộ thành công, giữ 14 bản, giới hạn 1 MB; Postgres có thể nén JSONB bằng TOAST. File JSON có checksum, nhập sẽ xem trước và hợp nhất. File System Access cần người dùng chọn file và cấp quyền; nếu quyền bị thu hồi, ứng dụng vẫn nhắc sao lưu tuần.
+
+Tên thành phố được gửi tới Open-Meteo để lấy thời tiết. Nhạc nhúng phụ thuộc quyền nhúng và kết nối mạng. Nền upload và dữ liệu học ở chế độ Khách nằm trên máy; xóa dữ liệu website sẽ xóa bản cục bộ. Các luồng Supabase chưa được kiểm tra thực tế vì chưa có project/khóa trong môi trường này.
 
 Mốc Lighthouse >90 chưa được đo trên bản phát hành này.
 
