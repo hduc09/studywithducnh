@@ -11,13 +11,13 @@ const stateKey=()=>activeAccountId?'studywithducnh-user-'+activeAccountId+'-v1':
 const defaults=()=>({
   version:4,
   profile:{name:'',dailyGoal:120,onboarded:false},
-  settings:{lang:'vi',theme:'aurora',accent:'',font:'be',autoTheme:false,backgroundURL:'',backgroundType:'',blur:0,dim:48,customCSS:'',focus:25,short:5,long:15,custom:30,longEvery:4,autoNext:false,notify:false,leaveAlert:false,clockFormat:'24',clockStyle:'digital',backupAt:Date.now()},
+  settings:{lang:'vi',theme:'aurora',accent:'',font:'be',autoTheme:false,backgroundURL:'',backgroundType:'',blur:0,dim:48,customCSS:'',focus:25,short:5,long:15,custom:30,longEvery:4,autoNext:false,notify:false,leaveAlert:false,clockFormat:'24',clockStyle:'digital',backupAt:Date.now(),shareStudyStatus:false,shareMinutes:false,hidePresence:false,communityNotify:{friend:true,squad:true,room:true,streak:true},quietStart:'',quietEnd:''},
   timer:{mode:'focus',running:false,endAt:0,startedAt:0,remaining:1500,elapsed:0,session:1,activeTaskId:''},
   tasks:[],subjects:[],sessions:[],thoughts:[],notes:[],scratch:'',schedule:[],priorities:{},reviews:{},trash:[],importConflicts:[],importArchives:[],
   audio:{volumes:{},presets:[],sleepAt:0,musicURL:''},
   rewards:{quotes:[],quoteIndex:0},
   weather:{city:'',lat:null,lon:null,temp:null,code:null,updatedAt:0},
-  layout:{order:['timer','tasks','hero','subjects','next','insight','goal','utility'],hidden:[],sizes:{}}
+  layout:{order:['timer','tasks','hero','subjects','next','insight','goal','utility','friends','squad','rooms','sync'],hidden:[],sizes:{}}
 });
 function merge(input){
   const base=defaults(),raw=normalizeLegacyFields(input);

@@ -1,5 +1,13 @@
 # Changelog
 
+## Giai đoạn 9–10 — 2026-11-17
+
+- Thêm bạn bè qua username/link, chặn, tùy chọn quyền riêng tư và thông báo.
+- Thêm Squad 2–10 người, chuỗi ngày, khiên/ngày nghỉ, thử thách, bảng tuần và phiên Focus xác thực bằng RPC máy chủ.
+- Thêm phòng công khai/riêng/Squad, Presence/Broadcast, đồng hồ chung, chat, nhạc YouTube, lịch hẹn và công cụ kiểm duyệt.
+- Mở rộng `schema.sql` với RLS, RPC có kiểm tra thành viên, giới hạn tốc độ và test tích hợp cộng đồng.
+- Bản phát hành chưa được kiểm thử cloud/Realtime vì chưa có project Supabase và hai tài khoản test.
+
 ## Giai đoạn 8 — 2026-11-17
 
 - Thêm Supabase Auth, hồ sơ và avatar SVG; chế độ Khách vẫn chạy độc lập.
