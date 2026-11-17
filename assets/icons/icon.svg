@@ -1,1 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#8b80e8"/><stop offset="1" stop-color="#5dd7c7"/></linearGradient></defs><rect width="512" height="512" rx="126" fill="#121829"/><circle cx="256" cy="256" r="172" fill="url(#g)" opacity=".14"/><path d="M256 83c22 91 53 125 145 147-92 22-123 56-145 147-22-91-53-125-145-147 92-22 123-56 145-147Z" fill="url(#g)"/><circle cx="256" cy="230" r="33" fill="#fff"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">studywithducnh</title>
+  <defs>
+    <linearGradient id="mark" x1="100" y1="100" x2="390" y2="400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#b8a7ff"/>
+      <stop offset=".58" stop-color="#8aaaff"/>
+      <stop offset="1" stop-color="#67e1d1"/>
+    </linearGradient>
+    <radialGradient id="halo">
+      <stop stop-color="#5c60b7" stop-opacity=".48"/>
+      <stop offset="1" stop-color="#5c60b7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="#121829"/>
+  <circle cx="256" cy="256" r="215" fill="url(#halo)"/>
+  <circle cx="224" cy="274" r="112" fill="none" stroke="url(#mark)" stroke-width="48"/>
+  <path d="M336 128v258" fill="none" stroke="url(#mark)" stroke-width="48" stroke-linecap="round"/>
+  <path d="m130 119 8 22 22 8-22 8-8 22-8-22-22-8 22-8z" fill="#e8e2ff"/>
+  <circle cx="379" cy="132" r="7" fill="#77ded4"/>
+</svg>
