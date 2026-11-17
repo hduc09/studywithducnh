@@ -1,4 +1,4 @@
-const CACHE='studywithducnh-v3';
+const CACHE='studywithducnh-v4';
 const CORE=[
   './','./index.html','./manifest.json',
   './css/base.css','./css/themes.css','./css/components.css','./css/animations.css','./css/stage2.css','./css/stage3.css',
