@@ -7,3 +7,12 @@
 @media(max-width:600px){.command-dialog{max-width:94vw}.utility-body{flex-wrap:wrap}.legacy-dialog .modal-actions button{flex:1 1 140px}}
 .brand img.brand-mark{display:block;width:37px;height:37px;flex:0 0 37px;object-fit:cover;border-radius:12px;background:none;box-shadow:0 9px 25px rgba(var(--accent-rgb),.24)}
 .onboard-visual img{display:block;width:70px;height:70px;border-radius:20px}
+.guest-banner{margin:0 8px 8px;padding:9px 10px;border:1px solid rgba(var(--accent-rgb),.25);border-radius:10px;color:var(--muted);font-size:10px;line-height:1.4}
+#sync-status[data-state="error"]{color:#f49b9b}#sync-status[data-state="offline"]{color:#f7c986}#sync-status[data-state="syncing"]{color:var(--accent)}
+.settings-tabs{overflow-x:auto;max-width:100%;white-space:nowrap}.settings-tabs button{flex:0 0 auto}
+.account-form{display:grid;gap:12px;margin:15px 0}.account-form label{margin:0}.account-form button{justify-self:start}
+.account-form fieldset{border:1px solid var(--line);border-radius:11px;padding:12px}.account-form legend{font-size:11px;color:var(--muted);font-weight:700}
+.avatar-options{display:flex;flex-wrap:wrap;gap:10px}.avatar-option{width:54px;height:54px;padding:5px;border:2px solid transparent;border-radius:13px;background:rgba(255,255,255,.04)}.avatar-option.selected{border-color:var(--accent)}.avatar-option img{width:100%;height:100%}
+.recovery-row{padding:12px 0;border-bottom:1px solid var(--line);display:grid;gap:8px}.recovery-row strong{font-size:12px}.recovery-row p{font-size:11px;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}.recovery-row .setting-buttons{margin-top:2px}
+#guest-import-dialog p{line-height:1.6}@media(max-width:760px){#account-dialog,#sync-dialog,#trash-dialog,#revisions-dialog,#conflicts-dialog{width:min(96vw,710px);padding:18px}.account-form button{justify-self:stretch}}
+body.auth-pending .app-shell{visibility:hidden}body.auth-pending:after{content:'studywithducnh · Đang mở dữ liệu an toàn…';position:fixed;inset:0;display:grid;place-items:center;color:var(--muted);font:700 13px var(--font);letter-spacing:.03em;background:var(--bg);z-index:200}
