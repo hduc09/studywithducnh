@@ -1,5 +1,5 @@
 import {$,$$,uid,localDate,toast,escapeHTML} from './utils.js';
-import {store,bus,exportData,importData,downloadLegacyData,ensureBackgroundMigration,migrationStatus,checkBackupReminder} from './store.js';
+import {store,bus,exportData,importData,downloadLegacyData,ensureBackgroundMigration,migrationStatus,checkBackupReminder,autoBackupIfDue} from './store.js';
 import {initTimer,toggle} from './timer.js';
 import {initTasks} from './tasks.js';
 import {initSubjects} from './subjects.js';
@@ -12,6 +12,7 @@ import {initPlanner} from './planner.js';
 import {initGamification} from './gamification.js';
 import {initCommands} from './commands.js';
 import {initUtility} from './utility.js';
+import {initAccount} from './account.js';
 const views=['home','tasks','subjects','stats','audio','notes','planner','rewards'];
 function navigate(view){if(!views.includes(view))return;$$('.view').forEach(el=>el.classList.toggle('active',el.id===`view-${view}`));$$('.nav-link[data-view]').forEach(el=>el.classList.toggle('active',el.dataset.view===view));$('#breadcrumb').textContent=tr(view==='home'?'dashboard':view);$('#sidebar').classList.remove('open');location.hash=view}
 function renderLayout(){const layout=store.get().layout,grid=$('#dashboard-grid');layout.order.forEach(id=>{const node=grid.querySelector(`[data-widget="${id}"]`);if(node)grid.append(node)});$$('.widget').forEach(node=>{node.hidden=layout.hidden.includes(node.dataset.widget);node.dataset.size=layout.sizes[node.dataset.widget]||'normal'});const labels={timer:'Đồng hồ tập trung',tasks:'Việc cần học',hero:'Tiến độ hôm nay',subjects:'Môn học',next:'Sắp đến hạn',insight:'Nhịp học của bạn',goal:'3 ưu tiên hôm nay',utility:'Thời gian & thời tiết'};$('#layout-options').innerHTML=layout.order.map(id=>`<div class="layout-row" data-layout-id="${id}"><label><input type="checkbox" ${layout.hidden.includes(id)?'':'checked'}>${labels[id]}</label><select aria-label="Kích cỡ ${labels[id]}"><option value="normal" ${layout.sizes[id]==='normal'||!layout.sizes[id]?'selected':''}>Thường</option><option value="wide" ${layout.sizes[id]==='wide'?'selected':''}>Rộng</option><option value="full" ${layout.sizes[id]==='full'?'selected':''}>Toàn hàng</option></select><button class="icon-button" data-layout-move="up" aria-label="Chuyển ${labels[id]} lên">↑</button><button class="icon-button" data-layout-move="down" aria-label="Chuyển ${labels[id]} xuống">↓</button></div>`).join('')}
@@ -19,6 +20,7 @@ function initLayout(){renderLayout();$('#layout-trigger').onclick=()=>{$('#layou
 function initOnboarding(){if(store.get().profile.onboarded)return;$('#onboard-theme').innerHTML=themes.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');$('#onboarding-dialog').showModal();$('#onboarding-form').onsubmit=e=>{e.preventDefault();const data=new FormData(e.target),name=String(data.get('name')).trim(),subject=String(data.get('subject')).trim();store.update(s=>{s.profile.name=name;s.profile.dailyGoal=Math.max(5,Number(data.get('goal'))||120);s.profile.onboarded=true;s.settings.theme=String(data.get('theme'));if(subject)s.subjects.push({id:uid(),name:subject,icon:'📚',color:'#a99bff',goalDay:60,goalWeek:420,goalMonth:1800,examDate:'',chapters:[]})},'replace');$('#onboarding-dialog').close();toast(`Chào mừng ${name} đến với studywithducnh!`)}}
 function initLegacyMigration(){
   ensureBackgroundMigration();
+  if(store.getAccountId())return;
   if(migrationStatus.copyError)toast('Chưa thể sao chép dữ liệu sang tên mới vì bộ nhớ đầy. Bản gốc vẫn được giữ; hãy xuất bản sao lưu.');
   if(!store.hasLegacy()){initOnboarding();return}
   const dialog=$('#legacy-dialog'),count=store.legacyCounts();
@@ -37,5 +39,7 @@ function initNavigation(){$$('.nav-link[data-view]').forEach(btn=>btn.onclick=()
 function initClock(){const update=()=>{$('#live-clock').textContent=new Intl.DateTimeFormat(store.get().settings.lang==='vi'?'vi-VN':'en-US',{hour:'2-digit',minute:'2-digit',hour12:store.get().settings.clockFormat==='12'}).format(new Date());$('#today-label').textContent=new Intl.DateTimeFormat(store.get().settings.lang==='vi'?'vi-VN':'en-US',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date()).toLocaleUpperCase()};update();setInterval(update,30000);bus.on('language',update);bus.on('settings',update)}
 function initRipple(){document.addEventListener('pointerdown',e=>{const button=e.target.closest('.primary-button,.outline-button,.nav-link,.icon-button');if(!button||matchMedia('(prefers-reduced-motion: reduce)').matches)return;button.classList.add('ripple-host');const rect=button.getBoundingClientRect(),node=document.createElement('span');node.className='ripple';node.style.left=`${e.clientX-rect.left-40}px`;node.style.top=`${e.clientY-rect.top-40}px`;button.append(node);setTimeout(()=>node.remove(),600)})}
 initNavigation();initLayout();$('#layout-options').addEventListener('click',event=>{const button=event.target.closest('[data-layout-move]'),id=button?.closest('[data-layout-id]')?.dataset.layoutId;if(!id)return;store.update(state=>{const order=state.layout.order,index=order.indexOf(id),other=index+(button.dataset.layoutMove==='up'?-1:1);if(other>=0&&other<order.length)[order[index],order[other]]=[order[other],order[index]]},'layout')});initThemes();initI18n();initSubjects();initTasks();initStats();initAudio();initNotes();initPlanner();initGamification();initUtility();initTimer();initClock();initZen();initCommands();initRipple();initLegacyMigration();checkBackupReminder();
+initAccount();
+autoBackupIfDue();setInterval(autoBackupIfDue,60*60*1000);
 if('serviceWorker'in navigator&&location.protocol!=='file:'){let hadController=Boolean(navigator.serviceWorker.controller);navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadController)toast('Có bản mới, tải lại khi bạn đã lưu xong dữ liệu đang nhập.',{label:'Tải lại',run:()=>location.reload()});hadController=true});navigator.serviceWorker.register('./sw.js').catch(()=>{});}
 
